@@ -152,11 +152,16 @@ const LOCATIONS = {
     npcs: [
       { name: "mario",  image: "mario.png",  frames: 4, x: 2277, y: 590,  h: 292,
         lines: wrapPages("Are you sure you want to go in there? People have been in there, and both their mental health and their class scores are down. I'm here to warn you, but go ahead.") },   // higher hall, left door
-      { name: "guy",    image: "guy.png",    frames: 2, slots: 4, x: 1288, y: 3315, h: 304 },   // left hall, next to the lockers
-      { name: "grinch", image: "grinch.png", frames: 4, x: 3497, y: 3085, h: 375 },   // in front of the couch
-      { name: "bear",   image: "bear.png",   frames: 2, slots: 4, x: 3920, y: 2689, h: 315 },   // right of the couch
-      { name: "girl",   image: "girl.png",   frames: 4, x: 3980, y: 2808, h: 209 },   // right of the couch
-      { name: "ness",   image: "ness.png",   frames: 2, slots: 4, x: 5247, y: 3330, h: 245 },   // right hall, by the map
+      { name: "guy",    image: "guy.png",    frames: 2, slots: 4, x: 1288, y: 3315, h: 304,
+        lines: ["Wait, I know Chinese! " + "Bingqilin ".repeat(14).trim()] },   // left hall, next to the lockers
+      { name: "grinch", image: "grinch.png", frames: 4, x: 3497, y: 3085, h: 375,
+        lines: ["Shhh, I'm stealing their vending machine. It's the closest thing to Christmas here."] },   // in front of the couch
+      { name: "bear",   image: "bear.png",   frames: 2, slots: 4, x: 3920, y: 2689, h: 315,
+        lines: ["Are you new here? You know wearing a tie is mandatory at least once a week, right?"] },   // right of the couch
+      { name: "girl",   image: "girl.png",   frames: 4, x: 3980, y: 2808, h: 209,
+        lines: ["گفتی شیمی می‌خونی پس؟ اها؟ چینی؟"] },   // right of the couch
+      { name: "ness",   image: "ness.png",   frames: 2, slots: 4, x: 5247, y: 3330, h: 245,
+        lines: ["Friendly tip: always keep a copy of your documents. Always. Trust me."] },   // right hall, by the map
     ],
     // 45-degree cut at the LEFT END of the left hall (next to door 114): everything up-left of the line
     // x + y = sum is blocked. Line goes from (99.14, 3560) up-right to (419.14, 3240).
@@ -166,14 +171,14 @@ const LOCATIONS = {
     ],
     interact: [
       // lockers on the wall of the left hall (all share the same y). Locker 4 = the gap between 3 and 5.
-      { name: "locker 1", x1: 1668.00, x2: 1824.63, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["* (locker 1 - fill me in)"] },
-      { name: "locker 2", x1: 1506.13, x2: 1668.00, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["* (locker 2 - fill me in)"] },
-      { name: "locker 3", x1: 1346.91, x2: 1506.13, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["* (locker 3 - fill me in)"] },
-      { name: "locker 4", x1: 1188.53, x2: 1346.91, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["* (locker 4 - fill me in)"] },
-      { name: "locker 5", x1: 1025.93, x2: 1188.53, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["* (locker 5 - fill me in)"] },
+      { name: "locker 1", x1: 1668.00, x2: 1824.63, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["It's rude to peek into other people's lockers. Let's walk away."] },
+      { name: "locker 2", x1: 1506.13, x2: 1668.00, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["It's rude to peek into other people's lockers. Let's walk away."] },
+      { name: "locker 3", x1: 1346.91, x2: 1506.13, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["Li Laoshi's abandoned locker. There is still a mango juice inside. Legends say she once walked these halls, though nobody remembers when."] },
+      { name: "locker 4", x1: 1188.53, x2: 1346.91, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["Full of old HSK practice papers. Somebody really wanted that Level 4."] },
+      { name: "locker 5", x1: 1025.93, x2: 1188.53, y1: 2855.17, y2: 3240.94, reach: 40, lines: ["It's stuck. Maybe it's stuck forever."] },
       // lockers behind the 45-degree border (she can't step on it, but can talk to them)
       { name: "diagonal lockers", x1: 99.14, x2: 419.14, y1: 2855.17, y2: 3560, sum: 3659.14, reach: 40,
-        lines: ["* (diagonal lockers - fill me in)"] },
+        lines: ["These lockers are at a weird angle. Nobody knows why. The architects stay silent."] },
       // boards, fountain, map on the wall
       { name: "board 1", x1: 2112.45, x2: 2566.07, y1: 2865.26, y2: 3159.15, reach: 90, lines: [
         ...wrapPages("NOTICE: A welcome ceremony for the incoming 1405 class of Chinese language students will be held with the presence of professors and student organizations of the faculty."),
@@ -185,9 +190,9 @@ const LOCATIONS = {
         "* Date: Saturday,\n  Aban 16, 1405\n  (November 7, 2026)",
       ] },
       { name: "drinking fountain", x1: 4191.66, x2: 4353.47, y1: 2983.36, y2: 3144.24, reach: 100, run: () => ask("* Oh, free water.\n  Want some?", ["Yes", "No"], sel => {
-          talk = { lines: [sel === 0 ? "* You drink some water.\n  Not the cold, fresh type.\n  Just... water." : "* You walk away thirsty."], i: 0, shown: 0 };
+          talk = { lines: fixLines(sel === 0 ? "You drink some water. Not the cold, fresh type. Just... water." : "You walk away thirsty."), i: 0, shown: 0 };
         }) },
-      { name: "map", x1: 5345.20, x2: 6143.95, y1: 2858.35, y2: 3238.56, reach: 40, lines: ["* (map - fill me in)"] },
+      { name: "map", x1: 5345.20, x2: 6143.95, y1: 2858.35, y2: 3238.56, reach: 40, lines: ["Persian Gulf.", "And the same name written in so many other languages."] },
       // lobby couch (in the main hall)
       { name: "lobby couch", x1: 3173, x2: 3821, y1: 2464, y2: 2999.60, lines: [
         "* Oh, the core of Zabanha.",
@@ -235,7 +240,7 @@ const LOCATIONS = {
     // x = centre of the drawn sprite, y = feet. hitX = where the solid box / Z-area is centred if that is
     // not the sprite centre (the prof's pointer stick makes his sprite wider than his body).
     npcs: [
-      { name: "prof",     image: "prof.png",     frames: 2, slots: 4, x: 285, y: 375, h: 285, hitX: 230, hitW: 150 },
+      { name: "prof",     image: "prof.png",     frames: 2, slots: 4, x: 285, y: 375, h: 285, hitX: 230, hitW: 150, lines: ["wo de mao..."] },
       { name: "redboy",   image: "redboy.png",   frames: 4, x: 757, y: 572, h: 197, lines: ["* Cappuccino...\n  Cappuccino....\n  Cappuccino after 11am...."] },
       { name: "blondboy", image: "blondboy.png", frames: 4, x: 372, y: 938, h: 201, lines: ["* I'm starving... T-T"] },
       { name: "blueboy",  image: "blueboy.png",  frames: 4, x: 914, y: 925, h: 203, lines: ["* What's for lunch?"] },
@@ -275,13 +280,13 @@ const LOCATIONS = {
     // lines = pages of text (one page per entry, use \n for a 2nd line). reach = how far away she can be.
     interact: [
       { name: "teacher desk", x1: 311.01, x2: 767.10, y1: 213.96, y2: 417.90,
-        lines: ["* (teacher desk - fill me in)"] },
+        lines: ["Stacks of papers and one very suspicious red pen."] },
       { name: "whiteboard", x1: 238.00, x2: 839.66, y1: 25.42, y2: 189.47, reach: 80,
-        lines: ["* (whiteboard - fill me in)"] },
+        lines: ["The board is full of Chinese characters. You understand none of them... yet."] },
       { name: "clock", x1: 858.83, x2: 941.60, y1: 48.78, y2: 127.11, reach: 120,
         lines: wrapPages("It's a clock. An object that seems to freeze time during TingLi classes.") },
       { name: "wall notes", x1: 24.62, x2: 185.19, y1: 53.96, y2: 228.93, reach: 40,
-        lines: ["* (notes on the wall - fill me in)"] },
+        lines: ["Schedules. Check often, rooms change without warning."] },
       // student desks, row 1
       { name: "student desk 1", x1: 155.89, x2: 344.97,  y1: 466.01, y2: 601.94, lines: wrapPages("Yeah, that's Professor Vafaei...") },
       { name: "student desk 2", x1: 494.87, x2: 684.98,  y1: 466.01, y2: 601.94, lines: ["* ZzzzzZzzz"] },
@@ -289,10 +294,10 @@ const LOCATIONS = {
       // row 2
       { name: "student desk 4", x1: 156.00, x2: 345.23,  y1: 617.03, y2: 753.06, lines: ["* 一些年，一个人🎵", "* They seem to be singing\n  something in Chinese."] },
       { name: "student desk 5", x1: 494.94, x2: 685.01,  y1: 617.03, y2: 753.06, lines: ["* My cat drinks Cappuccino."] },
-      { name: "student desk 6", x1: 825.01, x2: 1014.98, y1: 617.03, y2: 753.06, lines: ["* (student desk 6 - fill me in)"] },
+      { name: "student desk 6", x1: 825.01, x2: 1014.98, y1: 617.03, y2: 753.06, lines: ["There are Chinese words engraved here. You can't read them yet, try again in two years."] },
       // row 3
-      { name: "student desk 7", x1: 155.89, x2: 344.97,  y1: 752.89, y2: 907.92, lines: ["* (student desk 7 - fill me in)"] },
-      { name: "student desk 8", x1: 494.87, x2: 684.98,  y1: 752.89, y2: 907.92, lines: ["* (student desk 8 - fill me in)"] },
+      { name: "student desk 7", x1: 155.89, x2: 344.97,  y1: 752.89, y2: 907.92, lines: ["A chair. And a table. Nothing more."] },
+      { name: "student desk 8", x1: 494.87, x2: 684.98,  y1: 752.89, y2: 907.92, lines: ["You sit on it. It's still warm.", "Then you quickly stand up the second it starts creaking under your weight."] },
       { name: "student desk 9", x1: 824.95, x2: 1015.00, y1: 752.89, y2: 907.92, lines: ["* There's a broken chair.\n  You find a note on it.", "* \"Spanish Major was here.\""] },
     ],
     exits: [
@@ -347,9 +352,9 @@ const LOCATIONS = {
     interact: [
       { name: "book1",        x1: 13.87,  x2: 439.03,  y1: 43.94,  y2: 371.03,  cycle: ["* The True Story of Ah Q\n  - Lu Xun", "* Dream of the Red Chamber\n  - Cao Xueqin", "* Legend of Hua Mulan"] },
       { name: "book2",        x1: 12.92,  x2: 469.00,  y1: 429.02, y2: 756.24,  cycle: ["* The Frog in the Well", "* Mr. Bazrafshan's old book.\n  It has a :( on it."] },
-      { name: "reception",    x1: 12.93,  x2: 503.98,  y1: 807.84, y2: 1070.96, lines: ["* (reception - fill me in)"] },
+      { name: "reception",    x1: 12.93,  x2: 503.98,  y1: 807.84, y2: 1070.96, lines: ["Reception. Ask here if you have any questions about the library."] },
       { name: "stand",        x1: 940.44, x2: 1414.01, y1: 463.99, y2: 767.89,  cycle: ["* Journey to the West\n  - Wu Cheng'en", "* The Analects\n  - Confucius"] },
-      { name: "library desk", x1: 999.97, x2: 1302.95, y1: 837.99, y2: 1065.27, lines: ["* (library desk - fill me in)"] },
+      { name: "library desk", x1: 999.97, x2: 1302.95, y1: 837.99, y2: 1065.27, lines: ["The librarian is away. Probably stuck in a TingLi class."] },
       { name: "stairs",       x1: 936.19, x2: 1413.95, y1: 20.62,  y2: 375.69,  lines: wrapPages("We have a Confucius Institute office on the 3rd floor. But that's for another game, for another day.") },
     ],
     exits: [
@@ -360,6 +365,22 @@ const LOCATIONS = {
     ],
   },
 };
+
+/* ================= AUTO-WRAP =================
+   Every dialogue page is re-flowed so it always fits the box. Long text simply continues on the next page.
+   You can write plain text (no "* " and no \n needed). */
+function fixLines(arr) {
+  return [].concat(arr).flatMap(l => wrapPages(String(l).replace(/\s*\n\s*/g, " ").replace(/^\*\s*/, "").trim()));
+}
+function fixAllDialogue() {
+  for (const loc of Object.values(LOCATIONS)) {
+    if (loc.enter) loc.enter = fixLines(loc.enter);
+    for (const o of loc.interact || []) {
+      if (o.lines) o.lines = fixLines(o.lines);
+      if (o.cycle) o.cycle = o.cycle.map(c => fixLines(c));
+    }
+  }
+}
 
 /* ================= SETUP ================= */
 
@@ -436,6 +457,7 @@ for (const loc of Object.values(LOCATIONS)) {
     });
   }
 }
+fixAllDialogue();
 function npcBox(n) {                               // solid box at their feet
   const w = n.hitW ?? n.h * 0.45, cx = n.hitX ?? n.x;
   return { x1: cx - w / 2, x2: cx + w / 2, y1: n.y - FEET_H, y2: n.y };
@@ -530,7 +552,7 @@ function askEnding(ex) {
     else if (seen === total)     msg = "* Oh we got a pro gamer.";
     else if (seen > total / 2)   msg = "* Are we sure we checked\n  everything? Good job tho!";
     else                         msg = "* Oh so you're bored huh?";
-    talk = { lines: [msg], i: 0, shown: 0, onEnd: () => { mode = "end"; endT = 0; } };
+    talk = { lines: [msg], i: 0, shown: 0, onEnd: () => { mode = "end"; endT = 0; endPhase = 0; } };
   });
 }
 
@@ -551,7 +573,7 @@ function tryInteract() {
   if (best.run) { best.seen = true; best.run(best); return; }
   if (best.cycle) {                                   // each press shows the next entry
     best.seen = true; best.n = best.n || 0;
-    talk = { lines: [best.cycle[best.n % best.cycle.length]], i: 0, shown: 0 }; best.n++;
+    talk = { lines: best.cycle[best.n % best.cycle.length], i: 0, shown: 0 }; best.n++;
     return;
   }
   if (best.lines && best.lines.length) { best.seen = true; talk = { lines: best.lines, i: 0, shown: 0 }; }
@@ -744,10 +766,10 @@ const INVENTORY = [
   { fa: "کارت ملی (اصل)" },
   { fa: "عکس پرسنلی (۱۲ قطعه)" },
   { fa: "ریزنمرات دیپلم" },
-  { fa: "کارت پایان خدمت یا معافیت تحصیلی", maleOnly: true },
+  { fa: "کارت پایان خدمت یا معافیت تحصیلی (فقط توی کیف آقایون)" },
 ];
 let invOpen = false, invSel = 0;
-const invItems = () => INVENTORY.filter(it => !it.maleOnly || profile.gender.startsWith("Male"));
+const invItems = () => INVENTORY;
 document.fonts.load("24px RadioFill");
 let nameTyping = false;
 const nameInput = document.createElement("input");
@@ -768,8 +790,14 @@ function startWelcome() {
 function finishName() {
   const n = nameInput.value.trim();
   if (!n) return;                                   // needs at least one letter
+  const low = n.toLowerCase().replace(/[^a-z\u0600-\u06ff ]/g, "").replace(/\s+/g, " ").trim();
+  const reask = text => { nameTyping = false; nameInput.blur(); guideSay(text, () => { nameTyping = true; nameInput.value = ""; nameInput.focus(); }); };
+  if (low.replace(/ /g, "") === "frisk") return reask("Oh, you know ball.");
+  const BAD_ANY = ["fuck", "shit", "bitch", "cunt"];              // blocked anywhere inside the name
+  const BAD_WORD = ["kir", "kos", "کیر", "کوس"];                   // blocked only as a whole word (so Kosar / Akira are fine)
+  if (BAD_ANY.some(w => low.replace(/ /g, "").includes(w)) || low.split(" ").some(w => BAD_WORD.includes(w))) return reask("Nope.");
   profile.name = n; nameTyping = false; nameInput.blur();
-  guideSay("Nice to meet you, " + n + "! Just a few more things.", askGender);
+  guideSay("Nice to meet you, " + n + "! Just one more thing.", askHome);
 }
 function askGender() {
   const opts = ["Female (she/her)", "Male (he/him)", "Non-binary (they/them)"];
@@ -1232,22 +1260,50 @@ function drawBattle() {
   if (fade.a > 0) { ctx.fillStyle = `rgba(0,0,0,${fade.a})`; ctx.fillRect(0, 0, W, H); }
 }
 
+const CREDITS = [
+  "#405tale", "",
+  "#Programming & Map", "Zeinab Ghalavand (Amoo)", "",
+  "#Art", "Hadis Kamali Arya", "Zeinab Ghalavand (Amoo)", "",
+  "#Story & Characters", "Tabassom Alikhani (Toranj)", "Bahar Khodabakhsh", "",
+  "#Level Ideas", "Tabassom Alikhani (Toranj)", "",
+  "#Special Thanks", "Our juniors, for playing", "Hope you enjoyed,", "and welcome!", "", "",
+  "Inspired by Undertale and", "Deltarune by Toby Fox.", "Fan-made, unofficial,", "not affiliated.",
+];
+let endPhase = 0, credY = 0;
+
 function drawEnd(dt) {
   endT += dt;
   const W = canvas.width, H = canvas.height, s = Math.min(W / 640, H / 480);
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
-  ctx.globalAlpha = Math.min(1, endT / 1.5); ctx.fillStyle = "#fff";
-  ctx.font = `${48 * s}px DeterminationMono, 'Courier New', monospace`;
-  ctx.textBaseline = "middle"; ctx.textAlign = "center";
-  ctx.fillText("THE END", W / 2, H * 0.14);
-  ctx.font = `${22 * s}px DeterminationMono, 'Courier New', monospace`;
-  const endText = "We are really glad you're here. This faculty is truly unique. It's full of different people, and everyone is unique in their own way. And I know you are too. We can't wait to get to know you. If you have any questions, please ask us. We've been there. We know.";
-  const endLines = []; let ln = "";
-  for (const w of endText.split(" ")) { if ((ln + w).length > 38) { endLines.push(ln.trim()); ln = ""; } ln += w + " "; }
-  endLines.push(ln.trim());
-  endLines.forEach((t, i) => ctx.fillText(t, W / 2, H * 0.3 + i * 32 * s));
-  ctx.fillText("Thanks for playing!", W / 2, H * 0.3 + (endLines.length + 1) * 32 * s);
-  ctx.globalAlpha = 1;
+  ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.direction = "ltr";
+  const font = px => `${px * s}px DeterminationMono, 'Courier New', monospace`;
+  if (endPhase === 0) {
+    ctx.globalAlpha = Math.min(1, endT / 1.5); ctx.fillStyle = "#fff";
+    ctx.font = font(48); ctx.fillText("THE END", W / 2, H * 0.14);
+    ctx.font = font(22);
+    const endText = "We are really glad you're here. This faculty is truly unique. It's full of different people, and everyone is unique in their own way. And I know you are too. We can't wait to get to know you. If you have any questions, please ask us. We've been there. We know.";
+    const endLines = []; let ln = "";
+    for (const w of endText.split(" ")) { if ((ln + w).length > 38) { endLines.push(ln.trim()); ln = ""; } ln += w + " "; }
+    endLines.push(ln.trim());
+    endLines.forEach((t, i) => ctx.fillText(t, W / 2, H * 0.3 + i * 32 * s));
+    ctx.globalAlpha = 1;
+    if (endT > 3) {                                        // after a moment: Z for the credits
+      ctx.fillStyle = "#888"; ctx.font = font(18);
+      ctx.fillText(touchOn ? "tap Z for credits" : "press Z for credits", W / 2, H * 0.93);
+      if (pressed.z || pressed.enter) { endPhase = 1; credY = H + 20 * s; }
+    }
+  } else {
+    credY -= 45 * s * dt;                                  // scroll up, stop when the last line is in the middle
+    const lineH = 34 * s, lastY = credY + (CREDITS.length - 1) * lineH;
+    if (lastY < H * 0.55) credY += (H * 0.55 - lastY);
+    ctx.font = font(22);
+    CREDITS.forEach((t, i) => {
+      if (!t) return;
+      const head = t[0] === "#";
+      ctx.fillStyle = head ? "#ff0" : "#fff";
+      ctx.fillText(head ? t.slice(1) : t, W / 2, credY + i * lineH);
+    });
+  }
 }
 
 /* ================= MUSIC ================= */
